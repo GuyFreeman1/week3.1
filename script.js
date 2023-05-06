@@ -54,18 +54,29 @@ function game() {
   console.log('Play Game!');
   console.log('==========');
 
-  for (let i = 1; i <= 5; i++) {
+  let i = 1;
+
+  while (i <= 5) {
     console.log(`Game ${i}`);
     console.log('--------');
+    
     let playerSelection = prompt('Please enter your selection : "Rock" , "Paper" , "Scissors"');
+
     if (playerSelection === null) {
       console.log('Game canceled!');
       return;
     }
+
     playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
-    const computerSelection = computerPlay();
-    playRound(playerSelection, computerSelection);
+
+    while (!playRound(playerSelection, computerPlay())) {
+      playerSelection = prompt(`Please enter a valid selection: "${play[0]}", "${play[1]}", or "${play[2]}"`);
+      playerSelection = playerSelection ? playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase() : '';
+    }
+
     console.log(`Player score: ${playerScore}, computer score: ${computerScore}`);
+
+    i++;
   }
 
   console.log('Game End!');
